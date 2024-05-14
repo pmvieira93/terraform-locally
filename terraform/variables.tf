@@ -17,3 +17,8 @@ variable "secret_value_current_version" {
   description = "The current version of the secret"
   default = {}
 }
+
+variable "localstack_url" {
+  description = "The localstack url"
+  default = "http://localhost:4566"
+}

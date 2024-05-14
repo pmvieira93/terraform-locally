@@ -4,6 +4,9 @@ https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
 
 # AWS Cli
 
+AWS Cli just works with localstack at least with version 2.11.6
+With the version 2.15.49, it's not working
+
 https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 
 # Localstack

@@ -12,3 +12,20 @@ apply:
 destroy:
 	pushd ./terraform; terraform plan -destroy -out tfplan.destroy '-lock=false' '-input=false'; popd
 	pushd ./terraform; terraform apply -destroy tfplan.destroy; popd
+
+up:
+	docker compose up --build -d
+
+down:
+	docker compose down
+
+
+plan-docker:
+	docker run -i -t --name terraform-dev -v ./terraform:/workspace -w /workspace --network=notification-service_notification-network hashicorp/terraform:1.8 plan -var "localstack_url=http://localstack:4566"
+
+
+build:
+	docker build -t terraform-dev .
+
+run:
+	docker run -i -t --network=localstack-network terraform-dev:latest
