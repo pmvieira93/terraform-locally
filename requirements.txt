@@ -1,0 +1,11 @@
+# Terraform installation
+
+https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
+
+# AWS Cli
+
+https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+
+# Localstack
+
+
