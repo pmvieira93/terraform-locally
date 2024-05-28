@@ -42,4 +42,15 @@ module "pedro_sqs" {
   aws_region            = var.aws_region
   environment           = var.environment
   account_id            = var.aws_account_id
-} 
+}
+
+module "pedro_dynamodb" {
+  source = "./modules/dynamodb"
+  table_name = "pedro-dynamodb"
+  hash_key = "source"
+  range_key = "id"
+  attributes_list = [ { name = "id", type = "N" }, {name = "source", type = "S"} ]
+  attr_ttl_list = []
+  global_sec_idx_list = []
+  local_sec_idx_list = []
+}

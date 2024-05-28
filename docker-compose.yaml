@@ -7,9 +7,8 @@ services:
   # https://hub.docker.com/r/localstack/localstack
   localstack:
     container_name: localstack-dev
-    #profiles:
-    #  - dev
-    #  - ft
+    profiles:
+      - dev
     image: localstack/localstack:1.4
     ports:
       - "4566:4566"
@@ -17,7 +16,6 @@ services:
       - DOCKER_HOST=unix:///var/run/docker.sock
       - AWS_REGION=eu-central-1
       - EDGE_PORT=4566
-    #  - SERVICES=sqs,sns
       - AWS_ENVIRONMENT=local
       - AWS_ACCESS_KEY_ID=testkey
       - AWS_SECRET_ACCESS_KEY=test
