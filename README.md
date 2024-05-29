@@ -24,6 +24,13 @@ Example: `queue-attributes.json`
 }
 ```
 
+Lambda Commands
+```shell
+aws lambda list-functions --endpoint-url http://localhost:4566 --region eu-central-1 --output json
+
+aws lambda invoke --endpoint-url http://localhost:4566 --function-name pedro-vieira-lambda-py output.txt --region eu-central-1 --output json
+```
+
 ## References
 
 - AWS Command Builder: https://awsclibuilder.com/home/
