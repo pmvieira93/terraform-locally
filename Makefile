@@ -14,10 +14,10 @@ destroy:
 	pushd ./terraform; terraform apply -destroy tfplan.destroy; popd
 
 up:
-	docker compose up --build -d
+	docker compose --profile dev up --build -d
 
 down:
-	docker compose down
+	docker compose --profile dev down
 
 
 plan-docker:
