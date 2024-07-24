@@ -16,6 +16,7 @@ services:
       - DOCKER_HOST=unix:///var/run/docker.sock
       - AWS_REGION=eu-central-1
       - EDGE_PORT=4566
+      - SERVICES=s3,kms,lambda,sqs,secretmanager,iam
       - AWS_ENVIRONMENT=local
       - AWS_ACCESS_KEY_ID=testkey
       - AWS_SECRET_ACCESS_KEY=test
@@ -24,10 +25,19 @@ services:
     networks:
       - localstack-network
   
-  #terraform-cli:
-  #  container_name: terraform-cli
-  #  profiles:
-  #    - dev
-  #  image: 
+  terraform-cli:
+    container_name: terraform-cli
+    build:
+      context: .
+      dockerfile: terraform.Dockerfile
+    depends_on:
+      - localstack
+    environment:
+      - ENDPOINT_URL=http://localstack:4566
+      - AWS_ACCESS_KEY_ID=testkey
+      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_DEFAULT_REGION=eu-central-1
+    networks:
+      - localstack-network
     
 
