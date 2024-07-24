@@ -18,7 +18,7 @@ provider "aws" {
   access_key                  = "testkey"
   secret_key                  = "test"
   region                      = "eu-central-1"
-  s3_use_path_style           = false
+  s3_use_path_style           = true
   skip_credentials_validation = true
   skip_metadata_api_check     = true
   skip_requesting_account_id  = true
@@ -35,11 +35,14 @@ provider "aws" {
     firehose       = var.localstack_url
     iam            = var.localstack_url
     kinesis        = var.localstack_url
+    kms            = var.localstack_url
     lambda         = var.localstack_url
     rds            = var.localstack_url
     redshift       = var.localstack_url
     route53        = var.localstack_url
-    s3             = "http://s3.localhost.localstack.cloud:4566"
+    #s3             = "http://s3.localhost.localstack.cloud:4566"
+    # S3: In order to use the default endpoint, you need to set 's3_use_path_style' to true
+    s3             = var.localstack_url
     secretsmanager = var.localstack_url
     ses            = var.localstack_url
     sns            = var.localstack_url

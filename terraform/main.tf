@@ -11,6 +11,10 @@ locals {
   secret_key_value_definition = {
     githubApiKey = "dummy-api-key"
   }
+
+  allowed_principals = [
+    "arn:aws:iam::${var.aws_account_id}:role/dev-role"
+  ]
 }
 
 ##############################################################################
@@ -81,6 +85,12 @@ resource "aws_lambda_function" "lambda_goland" {
   }
 }
 
+# KMS
+resource "aws_kms_key" "dev_kms_key" {
+    description = "Dev KMS Key"
+    deletion_window_in_days = 15
+}
+
 
 
 
@@ -107,4 +117,19 @@ module "pedro_dynamodb" {
   attr_ttl_list       = []
   global_sec_idx_list = []
   local_sec_idx_list  = []
+}
+
+module "pedro_s3_bucket" {
+  source                 = "./modules/s3-bucket"
+  bucket_name            = "pedro-vieira-backup"
+  tags                   = local.common_tags
+  kms_master_key_id      = data.aws_kms_key.aws_managed_s3.arn
+  bucket_expiration_days = 30
+  account_id             = var.aws_account_id
+  allowed_principals     = local.allowed_principals
+  versioning_status      = "Enabled"
+  folders = ["resources/"]
+  depends_on = [
+    data.aws_kms_key.aws_managed_s3
+  ]
 }
